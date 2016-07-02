@@ -1,7 +1,7 @@
 import dude from 'debug-dude'
 const { debug, log, info } = dude('bot')
 
-import { version } from '../package.json'
+import { version, homepage } from '../package.json'
 info(`statsbot v${version} starting`)
 
 import config from '../config.json'
@@ -39,6 +39,12 @@ networks.on('command', (evt, reply) => {
     case 'stats':
       reply(
         displayStats({ chat: evt.chat })
+      )
+      break
+    case 'source':
+      reply(
+        `statsbot v${version} (protocol independent chat statistics bot) ` +
+        ` - Source: ${homepage}`
       )
       break
   }
