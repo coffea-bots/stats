@@ -27,9 +27,13 @@ Object.keys(EVENT_ALIASES).map(
 )
 log('collecting stats on the following events: %o', EVENTS)
 
-const getChatTitle = (evt) =>
+const getChatName = (evt) =>
   (evt && evt.raw && evt.raw.chat && evt.raw.chat.title) || // telegram
   evt.chat // default
+
+const getUserName = (evt) =>
+  (evt && evt.raw && evt.raw.from && evt.raw.from.username) || // telegram
+  evt.user // default
 
 networks.on('command', (evt, reply) => {
   log('received command event: %o', evt)
@@ -37,9 +41,19 @@ networks.on('command', (evt, reply) => {
   switch (evt.cmd) {
     case 'stats':
       reply(
-        displayStats({ chat: getChatTitle(evt) }, { chat: evt.chat })
+        displayStats({ chat: getChatName(evt) }, { chat: evt.chat })
       )
       break
+
+    case 'mystats':
+      reply(
+        displayStats(
+          { chat: getChatName(evt), user: '@' + getUserName(evt) },
+          { chat: evt.chat, user: evt.user }
+        )
+      )
+      break
+
     case 'source':
       reply(
         `statsbot v${version} (protocol independent chat statistics bot) ` +

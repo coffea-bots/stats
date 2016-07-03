@@ -27,7 +27,7 @@ export const getTodaysChatUserStats = (chat, user, type) => {
 }
 
 const deepSum = (data) => {
-  if (!data) return null
+  if (!data) return {}
   return Object.keys(data).reduce( // loop through dates
     (total, date) => {
       Object.keys(data[date]).map( // loop through types
@@ -58,7 +58,7 @@ export const getChatStats = (chat, type) =>
 // get per chat statistics
 export const getChatUserStats = (chat, user, type) =>
   deepSum(
-    db.get(`chats.${chat}.${user}`)
+    db.get(`users.${user}.${chat}`)
       .value()
   )
 

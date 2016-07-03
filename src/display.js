@@ -18,7 +18,7 @@ const displaySingleStats = (data) =>
   stats(data).join(' | ')
 
 // display stats for a certain user/chat
-export const displayStats = ({ chat: chatName, chat: userName }, { chat, user }) => {
+export const displayStats = ({ chat: chatName, user: userName }, { chat, user }) => {
   if (chat && user) {
     return `stats for ${userName} in ${chatName}: ${displaySingleStats(getChatUserStats(chat, user))}`
   } else if (chat) {
