@@ -7,12 +7,7 @@ info(`statsbot v${version} starting`)
 import config from '../config.json'
 
 import { connect } from 'coffea'
-// const networks = connect(config)
-import telegram from '../../coffea-telegram/src/index'
-const networks = connect({
-  protocol: telegram,
-  token: "232512249:AAFVwiBUTlCP4ZiAMOLoJcm3Ol4KFNLheMU"
-})
+const networks = connect(config)
 
 import { EVENTS, EVENT_ALIASES } from './constants'
 import { processEvent } from './track'
