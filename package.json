@@ -1,6 +1,6 @@
 {
   "name": "statsbot",
-  "version": "1.0-beta1",
+  "version": "1.0.0-beta1",
   "description": "protocol independent chat statistics bot made with coffea",
   "bin": {
     "bot": "build/index.js"
