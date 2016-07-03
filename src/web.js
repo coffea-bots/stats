@@ -7,7 +7,9 @@ const app = express()
 import { dump } from './db'
 import { PORT } from './constants'
 
-app.get('/', (req, res) => res.send(dump()))
+app.use(express.static('public'))
+
+app.get('/stats.json', (req, res) => res.send(dump()))
 
 app.listen(PORT, () => {
   info(`api running on port ${PORT}`)
