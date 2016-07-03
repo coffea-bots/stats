@@ -36,7 +36,6 @@ networks.on('command', (evt, reply) => {
 
   switch (evt.cmd) {
     case 'stats':
-      console.log(evt)
       reply(
         displayStats({ chat: getChatTitle(evt) }, { chat: evt.chat })
       )
