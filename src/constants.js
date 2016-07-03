@@ -1,6 +1,7 @@
 import { emoji } from 'node-emoji'
 
 export const DBPATH = 'stats.json'
+export const PORT = 9697
 
 export const EVENT_ALIASES = {
   'message': 'message',

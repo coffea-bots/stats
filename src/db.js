@@ -123,3 +123,5 @@ export const updateUser = (chat, user, type) => {
     })
     .value()
 }
+
+export const dump = () => db.getState()

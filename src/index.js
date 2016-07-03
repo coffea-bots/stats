@@ -17,6 +17,9 @@ import {
 import { processEvent } from './track'
 import { displayStats } from './display'
 
+// initialize the api/web server
+import './web'
+
 // listen to an event of a certain type
 const listen = (listenType, processType) =>
   networks.on(listenType, processEvent(processType))
