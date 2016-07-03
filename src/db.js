@@ -104,10 +104,15 @@ const persist = (path) => {
 // update per chat statistics
 export const updateChat = (chat, type, meta) => {
   persist(`chats.${chat}`)
+
+  // update metadata
+  db.get(`chats.${chat}`)
+    .assign({ meta })
+    .value()
+
   persist(`chats.${chat}.${today()}`)
   return db.get(`chats.${chat}.${today()}`)
     .assign({
-      _meta: meta,
       [type]: getTodaysChatStats(chat, type) + 1
     })
     .value()
@@ -116,11 +121,16 @@ export const updateChat = (chat, type, meta) => {
 // update per user statistics
 export const updateUser = (chat, user, type, meta) => {
   persist(`users.${user}`)
+
+  // update metadata
+  db.get(`users.${user}`)
+    .assign({ meta })
+    .value()
+
   persist(`users.${user}.${chat}`)
   persist(`users.${user}.${chat}.${today()}`)
   return db.get(`users.${user}.${chat}.${today()}`)
     .assign({
-      _meta: meta,
       [type]: getTodaysChatUserStats(chat, user, type) + 1
     })
     .value()
