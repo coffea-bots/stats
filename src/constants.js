@@ -14,7 +14,7 @@ export const EVENT_ALIASES = {
 export const EVENTS = Object.keys(EVENT_ALIASES).reduce(
   (events, key) => {
     const evt = EVENT_ALIASES[key]
-    if (!events.includes(evt)) return events.concat(evt)
+    if (events.indexOf(evt) === -1) return events.concat(evt)
     else return events
   }, []
 )
