@@ -18,13 +18,13 @@ const displaySingleStats = (data) =>
   stats(data).join(' | ')
 
 // display stats for a certain user/chat
-export const displayStats = ({ chat, user }) => {
+export const displayStats = ({ chat: chatName, chat: userName }, { chat, user }) => {
   if (chat && user) {
-    return `stats for ${user} in ${chat}: ${displaySingleStats(getChatUserStats(chat, user))}`
+    return `stats for ${userName} in ${chatName}: ${displaySingleStats(getChatUserStats(chat, user))}`
   } else if (chat) {
-    return `stats for chat ${chat}: ${displaySingleStats(getChatStats(chat))}`
+    return `stats for chat ${chatName}: ${displaySingleStats(getChatStats(chat))}`
   } else if (user) {
-    return `stats for user ${user}: ${displaySingleStats(getUserStats(user))}`
+    return `stats for user ${userName}: ${displaySingleStats(getUserStats(user))}`
   } else {
     throw new Error(
       'invalid arguments to displayStats: ' +

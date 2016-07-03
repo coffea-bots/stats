@@ -27,13 +27,18 @@ Object.keys(EVENT_ALIASES).map(
 )
 log('collecting stats on the following events: %o', EVENTS)
 
+const getChatTitle = (evt) =>
+  (evt && evt.raw && evt.raw.chat && evt.raw.chat.title) || // telegram
+  evt.chat // default
+
 networks.on('command', (evt, reply) => {
   log('received command event: %o', evt)
 
   switch (evt.cmd) {
     case 'stats':
+      console.log(evt)
       reply(
-        displayStats({ chat: evt.chat })
+        displayStats({ chat: getChatTitle(evt) }, { chat: evt.chat })
       )
       break
     case 'source':
