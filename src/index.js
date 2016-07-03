@@ -24,7 +24,7 @@ import './web'
 const listen = (listenType, processType) =>
   networks.on(listenType, processEvent(processType))
 
-// listen to telegram events
+// listen to (telegram) events
 debug('listening to events:')
 Object.keys(EVENT_ALIASES).map(
   (type) => {
@@ -33,6 +33,11 @@ Object.keys(EVENT_ALIASES).map(
   }
 )
 log('collecting stats on the following events: %o', EVENTS)
+
+// points system
+networks.on('message', (evt) => {
+  processEvent('score')(evt) // TODO: pass score/points in addition to event here
+})
 
 const getChatName = (evt) =>
   (evt && evt.raw && evt.raw.chat && evt.raw.chat.title) || // telegram
