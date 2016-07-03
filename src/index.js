@@ -10,6 +10,10 @@ import { connect } from 'coffea'
 const networks = connect(config)
 
 import { EVENTS, EVENT_ALIASES } from './constants'
+import {
+  getUserStats, getChatStats, getChatUserStats,
+  getAvgUserStats, getAvgChatStats, getAvgChatUserStats
+} from './db'
 import { processEvent } from './track'
 import { displayStats } from './display'
 
@@ -31,26 +35,46 @@ const getChatName = (evt) =>
   (evt && evt.raw && evt.raw.chat && evt.raw.chat.title) || // telegram
   evt.chat // default
 
-const getUserName = (evt) =>
-  (evt && evt.raw && evt.raw.from && evt.raw.from.username) || // telegram
-  evt.user // default
+const getUserName = (evt) => {
+  if (evt && evt.raw && evt.raw.from && evt.raw.from.username) { // telegram
+    return '@' + evt.raw.from.username
+  } else {
+    return evt.user // default
+  }
+}
 
 networks.on('command', (evt, reply) => {
   log('received command event: %o', evt)
 
+  const userName = getUserName(evt)
+  const chatName = getChatName(evt)
+
   switch (evt.cmd) {
     case 'stats':
       reply(
-        displayStats({ chat: getChatName(evt) }, { chat: evt.chat })
+        `stats for chat ${chatName}: ` +
+        displayStats(getChatStats(evt.chat))
       )
       break
 
     case 'mystats':
       reply(
-        displayStats(
-          { chat: getChatName(evt), user: '@' + getUserName(evt) },
-          { chat: evt.chat, user: evt.user }
-        )
+        `stats for ${userName} in ${chatName}: ` +
+        displayStats(getChatUserStats(evt.chat, evt.user))
+      )
+      break
+
+    case 'avgstats':
+      reply(
+        `average daily stats for chat ${chatName}: ` +
+        displayStats(getAvgChatStats(evt.chat))
+      )
+      break
+
+    case 'myavgstats':
+      reply(
+        `average daily stats for ${userName} in ${chatName}: ` +
+        displayStats(getAvgChatUserStats(evt.chat, evt.user))
       )
       break
 

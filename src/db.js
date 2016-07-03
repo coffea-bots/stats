@@ -41,23 +41,58 @@ const deepSum = (data) => {
   )
 }
 
+const deepAvg = (data) => {
+  if (!data) return {}
+
+  const daysAmount = Object.keys(data).length
+  const sumData = deepSum(data)
+
+  return Object.keys(sumData).reduce(
+    (result, key) => {
+      result[key] = sumData[key] / daysAmount
+      return result
+    }, {}
+  )
+}
+
 // get per user statistics
-export const getUserStats = (user, type) =>
+export const getUserStats = (user) =>
   deepSum(
     db.get(`users.${user}`)
       .value()
   )
 
 // get per chat statistics
-export const getChatStats = (chat, type) =>
+export const getChatStats = (chat) =>
   deepSum(
     db.get(`chats.${chat}`)
       .value()
   )
 
-// get per chat statistics
-export const getChatUserStats = (chat, user, type) =>
+// get per user per chat statistics
+export const getChatUserStats = (chat, user) =>
   deepSum(
+    db.get(`users.${user}.${chat}`)
+      .value()
+  )
+
+// get average per user statistics
+export const getAvgUserStats = (chat) =>
+  deepAvg(
+    db.get(`users.${user}`)
+      .value()
+  )
+
+// get average per chat statistics
+export const getAvgChatStats = (chat) =>
+  deepAvg(
+    db.get(`chats.${chat}`)
+      .value()
+  )
+
+// get average per user per chat statistics
+export const getAvgChatUserStats = (chat, user) =>
+  deepAvg(
     db.get(`users.${user}.${chat}`)
       .value()
   )
