@@ -1,6 +1,6 @@
 # statsbot
 
-_protocol independent chat statistics bot made with [coffea](https://github.com/caffeinery/coffea/tree/plugin-manager)_
+_protocol independent chat statistics bot made with [coffea](https://github.com/caffeinery/coffea)_
 
 [![https://i.imgur.com/szdgjf9.png](https://i.imgur.com/szdgjf9.png)](https://telegram.me/nationalsecurityagency_bot)
 
