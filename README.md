@@ -45,6 +45,25 @@ npm install coffea-telegram
 
 ## Running
 
+Use this for production use:
+
 ```
 npm start
 ```
+
+During development, you can also use:
+
+```
+npm run start:dev
+```
+
+To enable debug messages and run the code with on-the-fly compilation
+(via `babel-node`).
+
+Or you can use:
+
+```
+npm run watch
+```
+
+To automatically restart the bot when the code changes.
